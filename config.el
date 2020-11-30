@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Alex Meng"
+      user-mail-address "imxiangpeng@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -26,6 +26,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
+;;(setq doom-theme 'doom-palenight)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -34,6 +35,17 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+
+(setq undo-limit 80000000)                          ; Raise undo-limit to 80Mb
+
+(setq evil-want-fine-undo t)                        ; By default while in insert all changes are one big blob. Be more granular
+(setq auto-save-default t)                          ; Nobody likes to loose work, I certainly don't
+(setq inhibit-compacting-font-caches t)             ; When there are lots of glyphs, keep them in memory
+
+(delete-selection-mode 1)                             ; Replace selection when inserting text
+(display-time-mode 1)                                   ; Enable time in the mode-line
+
+(setq line-spacing 0.3)                                   ; seems like a nice line spacing balance.
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
