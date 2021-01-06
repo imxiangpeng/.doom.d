@@ -52,3 +52,9 @@
 (package! ggtags
   :recipe (:host github :repo "leoliu/ggtags"
            :files ("ggtags.el")))
+
+(package! spacemacs-theme)
+
+;;(package! org-roam-server
+;;  :recipe (:host github :repo "org-roam/org-roam-server"
+;;           :files ("org-roam/org-roam-server.el")))

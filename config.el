@@ -25,12 +25,13 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
-;;(setq doom-theme 'doom-palenight)
+;;(setq doom-theme 'doom-one)
+(setq doom-theme 'spacemacs-light)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/keeping/org/")
+(setq org-roam-directory "~/keeping")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -38,11 +39,11 @@
 
 (setq undo-limit 80000000)                          ; Raise undo-limit to 80Mb
 
-(setq evil-want-fine-undo t)                        ; By default while in insert all changes are one big blob. Be more granular
+;;(setq evil-want-fine-undo t)                        ; By default while in insert all changes are one big blob. Be more granular
 (setq auto-save-default t)                          ; Nobody likes to loose work, I certainly don't
 (setq inhibit-compacting-font-caches t)             ; When there are lots of glyphs, keep them in memory
 
-(delete-selection-mode 1)                             ; Replace selection when inserting text
+;;(delete-selection-mode 1)                             ; Replace selection when inserting text
 (display-time-mode 1)                                   ; Enable time in the mode-line
 
 (setq line-spacing 0.3)                                   ; seems like a nice line spacing balance.
@@ -64,4 +65,9 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(put 'upcase-region 'disabled nil)
+
+;;(setq gc-cons-threshold 20000000)
+;;(setq large-file-warning-threshold 200000000)
+
+;;(setq kill-whole-line t)
+;;(setq confirm-kill-emacs nil)
