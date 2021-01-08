@@ -30,12 +30,13 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/keeping/org/")
-(setq org-roam-directory "~/keeping")
+(setq org-directory "~/keeping/")
+(setq +org-capture-journal-file "org/journal-2021.org")
+;;(setq org-roam-directory "~/keeping")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 (setq undo-limit 80000000)                          ; Raise undo-limit to 80Mb
 
@@ -71,3 +72,4 @@
 
 ;;(setq kill-whole-line t)
 ;;(setq confirm-kill-emacs nil)
+
