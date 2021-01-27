@@ -19,8 +19,9 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;;(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -33,6 +34,9 @@
 (setq org-directory "~/keeping/")
 (setq +org-capture-journal-file "org/journal-2021.org")
 ;;(setq org-roam-directory "~/keeping")
+;;; Recommendation for Windows users for performance
+;;; https://github.com/org-roam/org-roam/issues/1289#issuecomment-744046148
+(setq org-roam-db-update-method 'immediate)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -48,7 +52,6 @@
 (display-time-mode 1)                                   ; Enable time in the mode-line
 
 (setq line-spacing 0.3)                                   ; seems like a nice line spacing balance.
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -72,4 +75,18 @@
 
 ;;(setq kill-whole-line t)
 ;;(setq confirm-kill-emacs nil)
+
+(use-package! org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/keeping/roam")
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))
+              (("C-c n I" . org-roam-insert-immediate))))
 
