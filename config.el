@@ -44,7 +44,7 @@
 
 (setq undo-limit 80000000)                          ; Raise undo-limit to 80Mb
 
-;;(setq evil-want-fine-undo t)                        ; By default while in insert all changes are one big blob. Be more granular
+(setq evil-want-fine-undo t)                        ; By default while in insert all changes are one big blob. Be more granular
 (setq auto-save-default t)                          ; Nobody likes to loose work, I certainly don't
 (setq inhibit-compacting-font-caches t)             ; When there are lots of glyphs, keep them in memory
 
@@ -91,5 +91,36 @@
 ;;              (("C-c n I" . org-roam-insert-immediate))))
 
 (after!  org-roam
-  (setq org-roam-directory "~/keeping/roam")
-  (setq org-roam-db-update-method 'immediate))
+  ;; fixed bug in windows, force using immediate
+  (setq org-roam-db-update-method 'immediate)
+  ;; mxp, 20210212, as we set roam directory to ~/keeping,
+  ;; but we also want all roam notes in ~/keeping/roam
+  ;; so we adjust the capture directory, prefixed with roam/
+  (setq org-roam-directory "~/keeping/")
+  ;;(setq org-roam-db-location "~/keeping/roam")
+  (setq org-roam-capture-templates
+        '(("d" "default" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "roam/${slug}"
+           :head "#+title: ${title}\n"
+           :immediate-finish t
+           :unnarrowed t)
+          ("p" "private" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "roam/private/${slug}"
+           :head "#+title: ${title}\n"
+           :immediate-finish t
+           :unnarrowed t)))
+    (setq org-roam-dailies-directory "daily/")
+    (setq org-roam-dailies-capture-templates
+          '(("d" "default" entry
+             #'org-roam-capture--get-point
+             "* %?"
+             :file-name "roam/daily/%<%Y-%m-%d>"
+             :head "#+title: %<%Y-%m-%d>\n\n"))))
+
+(use-package! org-roam-protocol
+  :after org-protocol)
+
+(use-package! ox-hugo
+  :after ox)

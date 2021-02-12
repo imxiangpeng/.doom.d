@@ -55,9 +55,15 @@
 
 (package! spacemacs-theme)
 
-;;(package! org-roam
-;;  :recipe (:host github :repo "org-roam/org-roam"))
+(package! org-roam
+  :recipe (:host github :repo "org-roam/org-roam"))
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 
-;;(package! org-roam-server
-;;  :recipe (:host github :repo "org-roam/org-roam-server"
-;;           :files ("org-roam/org-roam-server.el")))
+(package! org-roam-server
+  :recipe (:host github :repo "org-roam/org-roam-server"))
+
+(package! ox-hugo
+  :recipe (:host github :repo "kaushalmodi/ox-hugo"))
+
+(package! org-download)

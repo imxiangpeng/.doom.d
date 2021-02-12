@@ -52,7 +52,7 @@
        ;;zen               ; distraction-free coding or writing
 
        :editor
-       ;;(evil +everywhere); come to the dark side, we have cookies
+       (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        ;;(format +onsave)  ; automated prettiness
@@ -148,6 +148,7 @@
        ;;ocaml             ; an objective camel
        (org
          +roam
+         +pandoc
          +pretty
          +present)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
