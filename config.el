@@ -90,6 +90,9 @@
 ;;              (("C-c n i" . org-roam-insert))
 ;;              (("C-c n I" . org-roam-insert-immediate))))
 
+;; max window size, when startup
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
+
 (after!  org-roam
   ;; fixed bug in windows, force using immediate
   (setq org-roam-db-update-method 'immediate)
