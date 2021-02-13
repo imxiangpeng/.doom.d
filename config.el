@@ -103,13 +103,13 @@
            "%?"
            :file-name "roam/${slug}"
            :head "#+title: ${title}\n"
-           :immediate-finish t
+           ;;:immediate-finish t
            :unnarrowed t)
           ("p" "private" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "roam/private/${slug}"
            :head "#+title: ${title}\n"
-           :immediate-finish t
+           ;;:immediate-finish t
            :unnarrowed t)))
     (setq org-roam-dailies-directory "daily/")
     (setq org-roam-dailies-capture-templates
