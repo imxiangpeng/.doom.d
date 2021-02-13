@@ -91,7 +91,10 @@
 ;;              (("C-c n I" . org-roam-insert-immediate))))
 
 ;; max window size, when startup
-(add-hook 'window-setup-hook #'toggle-frame-maximized)
+(add-hook! 'window-setup-hook #'toggle-frame-maximized)
+;;(add-hook! 'window-setup-hook
+;;  (lambda()
+;;    (setq menu-bar-mode t)))
 
 (after!  org-roam
   ;; fixed bug in windows, force using immediate
