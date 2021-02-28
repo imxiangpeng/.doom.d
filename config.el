@@ -3,6 +3,7 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(load! "+bindings")
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -130,14 +131,6 @@
 
 (use-package! ox-hugo
   :after ox)
-
-;; I prefer using default binding in insert mode
-(when (featurep! :editor evil +everywhere)
-  (map!
-    :i "C-p" #'previous-line
-    :i "C-n" #'next-line
-    ;; evil bind C-x C-s to company-files
-    :i "C-x C-s" #'save-buffer))
 
 ;; disable persistent undo history
 (when (featurep! :editor undo +tree)
