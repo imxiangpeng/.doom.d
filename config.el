@@ -130,3 +130,9 @@
 
 (use-package! ox-hugo
   :after ox)
+
+;; I prefer using default binding in insert mode
+(map!
+ :i "C-p" #'previous-line
+ :i "C-n" #'next-line
+ )
