@@ -132,7 +132,14 @@
   :after ox)
 
 ;; I prefer using default binding in insert mode
-(map!
- :i "C-p" #'previous-line
- :i "C-n" #'next-line
- )
+(when (featurep! :editor evil +everywhere)
+  (map!
+    :i "C-p" #'previous-line
+    :i "C-n" #'next-line
+    ;; evil bind C-x C-s to company-files
+    :i "C-x C-s" #'save-buffer))
+
+;; disable persistent undo history
+(when (featurep! :editor undo +tree)
+  (after! undo-tree
+    (setq undo-tree-auto-save-history nil)))
