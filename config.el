@@ -97,6 +97,8 @@
 ;;(add-hook! 'window-setup-hook
 ;;  (lambda()
 ;;    (setq menu-bar-mode t)))
+;; using pretty mode for org
+(add-hook! 'org-mode-hook #'+org-pretty-mode)
 
 (after!  org-roam
   ;; fixed bug in windows, force using immediate
