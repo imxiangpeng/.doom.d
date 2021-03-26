@@ -7,5 +7,6 @@
     :gi "C-b" #'backward-char
     :gi "C-f" #'forward-char
     ;gi "C-k" #'kill-line
+    :i "C-y" #'yank
     ;; evil bind C-x C-s to company-files
     :gi "C-x C-s" #'save-buffer))

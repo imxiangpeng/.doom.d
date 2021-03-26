@@ -34,6 +34,7 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/keeping/")
 (setq +org-capture-journal-file "org/journal-2021.org")
+(setq +org-capture-todo-file "org/todo-2021.org")
 ;;(setq org-roam-directory "~/keeping")
 ;;; Recommendation for Windows users for performance
 ;;; https://github.com/org-roam/org-roam/issues/1289#issuecomment-744046148
@@ -104,6 +105,8 @@
   ;; but we also want all roam notes in ~/keeping/roam
   ;; so we adjust the capture directory, prefixed with roam/
   (setq org-roam-directory "~/keeping/")
+  ;; default org-roam-buffer-width is 0.33
+  (setq org-roam-buffer-width 0.20)
   ;;(setq org-roam-db-location "~/keeping/roam")
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
