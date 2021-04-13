@@ -2,6 +2,7 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
+(load-library "find-lisp")
 
 (load! "+bindings")
 
@@ -30,9 +31,13 @@
 ;;(setq doom-theme 'doom-one)
 (setq doom-theme 'spacemacs-light)
 
+(setq system-time-locale "C")
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/keeping/")
+(setq org-attach-id-dir "~/keeping/attachments")
+(setq org-agenda-files (find-lisp-find-files "~/keeping" "\.org$"))
 (setq +org-capture-journal-file "org/journal-2021.org")
 (setq +org-capture-todo-file "org/todo-2021.org")
 ;;(setq org-roam-directory "~/keeping")
@@ -55,6 +60,12 @@
 
 (setq line-spacing 0.3)                                   ; seems like a nice line spacing balance.
 
+(setq company-idle-delay nil)
+
+(setq default-directory "~")
+
+(setq projectile-enable-caching t)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -72,8 +83,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;;(setq gc-cons-threshold 20000000)
-;;(setq large-file-warning-threshold 200000000)
+(setq gc-cons-threshold 20000000)
+(setq large-file-warning-threshold 200000000)
 
 ;;(setq kill-whole-line t)
 ;;(setq confirm-kill-emacs nil)
@@ -141,3 +152,9 @@
 (when (featurep! :editor undo +tree)
   (after! undo-tree
     (setq undo-tree-auto-save-history nil)))
+
+(use-package! ggtags
+  :hook ((c-mode . ggtags-mode)
+         (java-mode . ggtags-mode))
+  :init
+  :config)
