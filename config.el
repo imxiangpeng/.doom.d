@@ -37,7 +37,7 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/keeping/")
 (setq org-attach-id-dir "~/keeping/attachments")
-(setq org-agenda-files (find-lisp-find-files "~/keeping" "\.org$"))
+(setq org-agenda-files (find-lisp-find-files "~/keeping/org" "\.org$"))
 (setq +org-capture-journal-file "org/journal-2021.org")
 (setq +org-capture-todo-file "org/todo-2021.org")
 ;;(setq org-roam-directory "~/keeping")
