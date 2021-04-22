@@ -44,6 +44,7 @@
 ;;; Recommendation for Windows users for performance
 ;;; https://github.com/org-roam/org-roam/issues/1289#issuecomment-744046148
 (setq org-roam-db-update-method 'immediate)
+(setq +org-roam-open-buffer-on-find-file nil)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
