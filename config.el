@@ -36,7 +36,9 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/keeping/")
-(setq org-attach-id-dir "~/keeping/attachments")
+;;(setq org-attach-id-dir "~/keeping/attachments")
+;; we prefer to store attach in current dir
+(setq org-attach-id-dir "./data")
 (setq org-agenda-files (find-lisp-find-files "~/keeping/org" "\.org$"))
 (setq +org-capture-journal-file "org/journal-2021.org")
 (setq +org-capture-todo-file "org/todo-2021.org")
