@@ -127,13 +127,13 @@
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
-           :file-name "roam/${slug}"
+           :file-name "roam/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}\n"
            ;;:immediate-finish t
            :unnarrowed t)
           ("p" "private" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "roam/private/${slug}"
+           :file-name "roam/private/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}\n"
            ;;:immediate-finish t
            :unnarrowed t)))
