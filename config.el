@@ -90,7 +90,7 @@
 (setq large-file-warning-threshold 200000000)
 
 ;;(setq kill-whole-line t)
-;;(setq confirm-kill-emacs nil)
+(setq confirm-kill-emacs nil)
 
 ;;(use-package! org-roam
 ;;      :ensure t
