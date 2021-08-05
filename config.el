@@ -4,8 +4,6 @@
 ;; sync' after modifying this file!
 (load-library "find-lisp")
 
-(load! "+bindings")
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Alex Meng"
@@ -114,6 +112,8 @@
 ;; using pretty mode for org
 (add-hook! 'org-mode-hook #'+org-pretty-mode)
 
+(setq org-roam-v2-ack t)
+
 (after!  org-roam
   ;; fixed bug in windows, force using immediate
   (setq org-roam-db-update-method 'immediate)
@@ -127,14 +127,14 @@
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
-           :file-name "roam/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+title: ${title}\n"
+           :if-new (file+head "roam/%<%Y%m%d%H%M%S>-${slug}"
+                               "#+title: ${title}\n")
            ;;:immediate-finish t
            :unnarrowed t)
           ("p" "private" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "roam/private/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+title: ${title}\n"
+           :if-new (file+head "roam/private/%<%Y%m%d%H%M%S>-${slug}"
+                               "#+title: ${title}\n")
            ;;:immediate-finish t
            :unnarrowed t)))
     (setq org-roam-dailies-directory "daily/")
@@ -142,8 +142,8 @@
           '(("d" "default" entry
              #'org-roam-capture--get-point
              "* %?"
-             :file-name "roam/daily/%<%Y-%m-%d>"
-             :head "#+title: %<%Y-%m-%d>\n\n"))))
+             :if-new (file+head "roam/daily/%<%Y-%m-%d>"
+                                "#+title: %<%Y-%m-%d>\n\n")))))
 
 (use-package! org-roam-protocol
   :after org-protocol)
@@ -158,6 +158,25 @@
 
 (use-package! ggtags
   :hook ((c-mode . ggtags-mode)
+         (c++-mode . ggtags-mode)
          (java-mode . ggtags-mode))
   :init
   :config)
+
+(use-package! counsel-gtags
+  :hook ((c-mode . counsel-gtags-mode)
+         (c++-mode . counsel-gtags-mode)
+         (java-mode . counsel-gtags-mode))
+  :init
+  :config
+  (define-key!
+    [remap +lookup/definition]    #'counsel-gtags-find-definition
+    [remap +lookup/references]    #'counsel-gtags-find-reference))
+
+(use-package! rime
+:custom
+  (default-input-method "rime"))
+  
+
+(load! "+bindings")
+

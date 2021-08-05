@@ -67,3 +67,7 @@
   :recipe (:host github :repo "kaushalmodi/ox-hugo"))
 
 (package! org-download)
+
+(package! counsel-gtags)
+
+(package! rime)
