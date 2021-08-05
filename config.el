@@ -88,21 +88,6 @@
 (setq large-file-warning-threshold 200000000)
 
 ;;(setq kill-whole-line t)
-(setq confirm-kill-emacs nil)
-
-;;(use-package! org-roam
-;;      :ensure t
-;;      :hook
-;;      (after-init . org-roam-mode)
-;;      :custom
-;;      (org-roam-directory "~/keeping/roam")
-;;      :bind (:map org-roam-mode-map
-;;              (("C-c n l" . org-roam)
-;;               ("C-c n f" . org-roam-find-file)
-;;               ("C-c n g" . org-roam-graph))
-;;              :map org-mode-map
-;;              (("C-c n i" . org-roam-insert))
-;;              (("C-c n I" . org-roam-insert-immediate))))
 
 ;; max window size, when startup
 (add-hook! 'window-setup-hook #'toggle-frame-maximized)
@@ -163,15 +148,15 @@
   :init
   :config)
 
-(use-package! counsel-gtags
-  :hook ((c-mode . counsel-gtags-mode)
-         (c++-mode . counsel-gtags-mode)
-         (java-mode . counsel-gtags-mode))
-  :init
-  :config
-  (define-key!
-    [remap +lookup/definition]    #'counsel-gtags-find-definition
-    [remap +lookup/references]    #'counsel-gtags-find-reference))
+;;(use-package! counsel-gtags
+;;  :hook ((c-mode . counsel-gtags-mode)
+;;         (c++-mode . counsel-gtags-mode)
+;;         (java-mode . counsel-gtags-mode))
+;;  :init
+;;  :config
+;;  (define-key!
+;;    [remap +lookup/definition]    #'counsel-gtags-find-definition
+;;    [remap +lookup/references]    #'counsel-gtags-find-reference))
 
 (use-package! rime
 :custom
