@@ -105,30 +105,29 @@
   ;; mxp, 20210212, as we set roam directory to ~/keeping,
   ;; but we also want all roam notes in ~/keeping/roam
   ;; so we adjust the capture directory, prefixed with roam/
-  (setq org-roam-directory "~/keeping/")
+  (setq org-roam-directory "~/keeping/roam")
   ;; default org-roam-buffer-width is 0.33
   (setq org-roam-buffer-width 0.20)
   ;;(setq org-roam-db-location "~/keeping/roam")
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
-           :if-new (file+head "roam/%<%Y%m%d%H%M%S>-${slug}"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}"
                                "#+title: ${title}\n")
            ;;:immediate-finish t
            :unnarrowed t)
           ("p" "private" plain (function org-roam-capture--get-point)
            "%?"
-           :if-new (file+head "roam/private/%<%Y%m%d%H%M%S>-${slug}"
+           :if-new (file+head "private/%<%Y%m%d%H%M%S>-${slug}"
                                "#+title: ${title}\n")
            ;;:immediate-finish t
            :unnarrowed t)))
     (setq org-roam-dailies-directory "daily/")
     (setq org-roam-dailies-capture-templates
-          '(("d" "default" entry
-             #'org-roam-capture--get-point
-             "* %?"
-             :if-new (file+head "roam/daily/%<%Y-%m-%d>"
-                                "#+title: %<%Y-%m-%d>\n\n")))))
+      '(("d" "default" entry
+         "* %?"
+         :if-new (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n")))))
 
 (use-package! org-roam-protocol
   :after org-protocol)
@@ -160,7 +159,8 @@
 
 (use-package! rime
 :custom
-  (default-input-method "rime"))
+  (default-input-method "rime")
+  (rime-show-candidate 'posframe))
   
 
 (load! "+bindings")
