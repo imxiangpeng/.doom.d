@@ -109,25 +109,7 @@
   ;; default org-roam-buffer-width is 0.33
   (setq org-roam-buffer-width 0.20)
   ;;(setq org-roam-db-location "~/keeping/roam")
-  (setq org-roam-capture-templates
-        '(("d" "default" plain (function org-roam--capture-get-point)
-           "%?"
-           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}"
-                               "#+title: ${title}\n")
-           ;;:immediate-finish t
-           :unnarrowed t)
-          ("p" "private" plain (function org-roam-capture--get-point)
-           "%?"
-           :if-new (file+head "private/%<%Y%m%d%H%M%S>-${slug}"
-                               "#+title: ${title}\n")
-           ;;:immediate-finish t
-           :unnarrowed t)))
-    (setq org-roam-dailies-directory "daily/")
-    (setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?"
-         :if-new (file+head "%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n")))))
+  )
 
 (use-package! org-roam-protocol
   :after org-protocol)
@@ -160,8 +142,20 @@
 (use-package! rime
 :custom
   (default-input-method "rime")
-  (rime-show-candidate 'posframe))
-  
+  (rime-show-candidate 'posframe)
+  (rime-disable-predicates
+      '(rime-predicate-evil-mode-p
+        rime-predicate-after-ascii-char-p ;; after any asscii
+        rime-predicate-space-after-cc-p ;; after zh with space
+        rime-predicate-current-uppercase-letter-p ;; upcase
+        rime-predicate-in-code-string-p
+	rime-predicate-punctuation-line-begin-p
+        rime-predicate-punctuation-after-space-cc-p
+        rime-predicate-punctuation-after-ascii-p
+        rime-predicate-prog-in-code-p))
+
+  (rime-inline-predicate
+        '(rime-predicate-space-after-ascii-p)))
 
 (load! "+bindings")
 
