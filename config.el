@@ -89,6 +89,9 @@
 
 ;;(setq kill-whole-line t)
 
+;; markdown mode hide urls
+(setq markdown-hide-urls t)
+
 ;; max window size, when startup
 (add-hook! 'window-setup-hook #'toggle-frame-maximized)
 ;;(add-hook! 'window-setup-hook
