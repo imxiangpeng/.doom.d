@@ -70,4 +70,9 @@
 
 (package! counsel-gtags)
 
+(package! ox-hugo
+  :recipe (:host github :repo "imxiangpeng/ox-hugo"))
+
+(unpin! ox-hugo)
+
 (package! rime)
