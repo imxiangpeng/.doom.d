@@ -89,6 +89,10 @@
 
 ;;(setq kill-whole-line t)
 
+;; disable markdown's auto indent when new line
+;; it causing too much space in empty line
+(setq markdown-indent-on-enter nil)
+
 ;; max window size, when startup
 (add-hook! 'window-setup-hook #'toggle-frame-maximized)
 ;;(add-hook! 'window-setup-hook
