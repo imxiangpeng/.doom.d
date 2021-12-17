@@ -66,8 +66,6 @@
 (package! ox-hugo
   :recipe (:host github :repo "kaushalmodi/ox-hugo"))
 
-(package! org-download)
-
 (package! counsel-gtags)
 
 (package! ox-hugo
@@ -76,3 +74,4 @@
 (unpin! ox-hugo)
 
 (package! rime)
+
