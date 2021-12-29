@@ -100,6 +100,10 @@
 ;;    (setq menu-bar-mode t)))
 ;; using pretty mode for org
 (add-hook! 'org-mode-hook #'+org-pretty-mode)
+(after! org-download
+  (setq org-download-method 'directory)
+  (setq-default org-download-image-dir "./assets")
+  (setq-default org-download-heading-lvl nil))
 
 (setq org-roam-v2-ack t)
 
