@@ -38,8 +38,8 @@
 ;; we prefer to store attach in current dir
 (setq org-attach-id-dir "./data")
 (setq org-agenda-files (find-lisp-find-files "~/keeping/org" "\.org$"))
-(setq +org-capture-journal-file "org/journal-2021.org")
-(setq +org-capture-todo-file "org/todo-2021.org")
+(setq +org-capture-journal-file "org/journal-2022.org")
+(setq +org-capture-todo-file "org/todo-2022.org")
 ;;(setq org-roam-directory "~/keeping")
 ;;; Recommendation for Windows users for performance
 ;;; https://github.com/org-roam/org-roam/issues/1289#issuecomment-744046148
