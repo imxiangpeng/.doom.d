@@ -40,11 +40,6 @@
 (setq org-agenda-files (find-lisp-find-files "~/keeping/" "\.org$"))
 (setq +org-capture-journal-file "org/journal-2022.org")
 (setq +org-capture-todo-file "org/todo-2022.org")
-;;(setq org-roam-directory "~/keeping")
-;;; Recommendation for Windows users for performance
-;;; https://github.com/org-roam/org-roam/issues/1289#issuecomment-744046148
-(setq org-roam-db-update-method 'immediate)
-(setq +org-roam-open-buffer-on-find-file nil)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -100,6 +95,12 @@
 ;;    (setq menu-bar-mode t)))
 ;; using pretty mode for org
 (add-hook! 'org-mode-hook #'+org-pretty-mode)
+
+(after! org
+  (setq org-log-done t)
+  (setq org-log-into-drawer t))
+
+;; must use setq-default to adjust buffer local var
 (after! org-download
   (setq org-download-method 'directory)
   (setq-default org-download-image-dir "./assets")
@@ -107,7 +108,7 @@
 
 (setq org-roam-v2-ack t)
 
-(after!  org-roam
+(after! org-roam
   ;; fixed bug in windows, force using immediate
   (setq org-roam-db-update-method 'immediate)
   ;; mxp, 20210212, as we set roam directory to ~/keeping,
@@ -117,7 +118,12 @@
   ;; default org-roam-buffer-width is 0.33
   (setq org-roam-buffer-width 0.20)
   ;;(setq org-roam-db-location "~/keeping/roam")
-  )
+  (setq +org-roam-open-buffer-on-find-file nil))
+
+;; support lsp
+(after! lsp-mode
+  (setq lsp-enable-file-watchers nil)
+  (add-hook! 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (use-package! org-roam-protocol
   :after org-protocol)
@@ -157,7 +163,7 @@
         rime-predicate-space-after-cc-p ;; after zh with space
         rime-predicate-current-uppercase-letter-p ;; upcase
         rime-predicate-in-code-string-p
-	rime-predicate-punctuation-line-begin-p
+        rime-predicate-punctuation-line-begin-p
         rime-predicate-punctuation-after-space-cc-p
         rime-predicate-punctuation-after-ascii-p
         rime-predicate-prog-in-code-p))
