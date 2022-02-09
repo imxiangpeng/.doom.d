@@ -48,6 +48,10 @@
 (setq undo-limit 80000000)                          ; Raise undo-limit to 80Mb
 
 (setq evil-want-fine-undo t)                        ; By default while in insert all changes are one big blob. Be more granular
+;; Focus new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
 (setq auto-save-default t)                          ; Nobody likes to loose work, I certainly don't
 (setq inhibit-compacting-font-caches t)             ; When there are lots of glyphs, keep them in memory
 
