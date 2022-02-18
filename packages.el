@@ -75,3 +75,8 @@
 
 (package! rime)
 
+(package! emacsql
+  :recipe
+        (:host github
+        :repo "bram85/emacsql"
+        :files ("*")))

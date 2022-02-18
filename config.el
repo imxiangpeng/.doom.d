@@ -40,6 +40,7 @@
 (setq org-agenda-files (find-lisp-find-files "~/keeping/" "\.org$"))
 (setq +org-capture-journal-file "org/journal-2022.org")
 (setq +org-capture-todo-file "org/todo-2022.org")
+(setq +org-roam-auto-backlinks-buffer t)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -85,6 +86,7 @@
 
 (setq gc-cons-threshold 20000000)
 (setq large-file-warning-threshold 200000000)
+(setq max-lisp-eval-depth 10000)
 
 ;;(setq kill-whole-line t)
 
@@ -103,6 +105,32 @@
 (after! org
   (setq org-log-done t)
   (setq org-log-into-drawer t))
+
+;;; Keybinds
+
+(map! (:after evil-org
+       :map evil-org-mode-map
+       :n "gk" (cmd! (if (org-on-heading-p)
+                         (org-backward-element)
+                       (evil-previous-visual-line)))
+       :n "gj" (cmd! (if (org-on-heading-p)
+                         (org-forward-element)
+                       (evil-next-visual-line))))
+
+      :o "o" #'evil-inner-symbol
+
+      :leader
+      "h L" #'global-keycast-mode
+      (:prefix "f"
+       "t" #'find-in-dotfiles
+       "T" #'browse-dotfiles)
+      (:prefix "n"
+       "b" #'org-roam-buffer-toggle
+       "d" #'org-roam-dailies-goto-today
+       "D" #'org-roam-dailies-goto-date
+       "i" #'org-roam-node-insert
+       "r" #'org-roam-node-find
+       "R" #'org-roam-capture))
 
 ;; must use setq-default to adjust buffer local var
 (after! org-download
@@ -124,10 +152,57 @@
   ;;(setq org-roam-db-location "~/keeping/roam")
   (setq +org-roam-open-buffer-on-find-file nil))
 
+(after! org-roam
+  (setq org-roam-capture-templates
+        `(("n" "note" plain
+           ,(format "#+title: ${title}\n%%[%s/template/note.org]" org-roam-directory)
+           :target (file "note/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("r" "thought" plain
+           ,(format "#+title: ${title}\n%%[%s/template/thought.org]" org-roam-directory)
+           :target (file "thought/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("t" "topic" plain
+           ,(format "#+title: ${title}\n%%[%s/template/topic.org]" org-roam-directory)
+           :target (file "topic/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("c" "contact" plain
+           ,(format "#+title: ${title}\n%%[%s/template/contact.org]" org-roam-directory)
+           :target (file "contact/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("p" "project" plain
+           ,(format "#+title: ${title}\n%%[%s/template/project.org]" org-roam-directory)
+           :target (file "project/%<%Y%m%d>-${slug}.org")
+           :unnarrowed t)
+          ("i" "invoice" plain
+           ,(format "#+title: %%<%%Y%%m%%d>-${title}\n%%[%s/template/invoice.org]" org-roam-directory)
+           :target (file "invoice/%<%Y%m%d>-${slug}.org")
+           :unnarrowed t)
+          ("f" "ref" plain
+           ,(format "#+title: ${title}\n%%[%s/template/ref.org]" org-roam-directory)
+           :target (file "ref/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("w" "works" plain
+           ,(format "#+title: ${title}\n%%[%s/template/works.org]" org-roam-directory)
+           :target (file "works/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("s" "secret" plain "#+title: ${title}\n\n"
+           :target (file "secret/%<%Y%m%d%H%M%S>-${slug}.org.gpg")
+           :unnarrowed t))
+        ;; Use human readable dates for dailies titles
+        org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %?"
+           :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%B %d, %Y>\n\n")))))
+
 ;; support lsp
 (after! lsp-mode
   (setq lsp-enable-file-watchers nil)
   (add-hook! 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
+(after! consult
+  (message "mxp .......")
+  (setq consult-async-min-input 5))
+
 
 (use-package! org-roam-protocol
   :after org-protocol)
