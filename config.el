@@ -65,6 +65,15 @@
 (setq default-directory "~")
 
 (setq projectile-enable-caching t)
+;; mxp, 20220218, do not auto delete projectile's cache
+;; we enlarge the limit size
+(setq doom-projectile-cache-limit 90000000)
+
+(setq gc-cons-threshold 20000000)
+(setq large-file-warning-threshold 200000000)
+
+;;(setq kill-whole-line t)
+
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -83,11 +92,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq gc-cons-threshold 20000000)
-(setq large-file-warning-threshold 200000000)
-
-;;(setq kill-whole-line t)
-
 ;; disable markdown's auto indent when new line
 ;; it causing too much space in empty line
 (setq markdown-indent-on-enter nil)
@@ -99,6 +103,14 @@
 ;;    (setq menu-bar-mode t)))
 ;; using pretty mode for org
 (add-hook! 'org-mode-hook #'+org-pretty-mode)
+
+;; projectile using default alien index method
+(after! projectile
+  (setq projectile-indexing-method 'hybrid)
+  (setq projectile-globally-ignored-file-suffixes
+        (append projectile-globally-ignored-file-suffixes '(".bak" ".swp" ".lock" ".bin" ".a" ".so" ".html" ".ts")))
+  (setq projectile-globally-ignored-directories
+        (append projectile-globally-ignored-directories '("out" ".git" "prebuilts" "tests"))))
 
 (after! org
   (setq org-log-done t)
@@ -123,11 +135,6 @@
   (setq org-roam-buffer-width 0.20)
   ;;(setq org-roam-db-location "~/keeping/roam")
   (setq +org-roam-open-buffer-on-find-file nil))
-
-;; support lsp
-(after! lsp-mode
-  (setq lsp-enable-file-watchers nil)
-  (add-hook! 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (use-package! org-roam-protocol
   :after org-protocol)
