@@ -106,7 +106,10 @@
 
 ;; projectile using default alien index method
 (after! projectile
-  (setq projectile-indexing-method 'hybrid)
+  ;; mxp, 20220509, alien is fast, because it will not filter & sort
+  ;; while hybrid is slow much when project is very large
+  (setq projectile-indexing-method 'alien)
+  (setq projectile-sort-order 'default)
   (setq projectile-globally-ignored-file-suffixes
         (append projectile-globally-ignored-file-suffixes '(".bak" ".swp" ".lock" ".bin" ".a" ".so" ".html" ".ts")))
   (setq projectile-globally-ignored-directories
