@@ -73,5 +73,11 @@
 
 (unpin! ox-hugo)
 
+(package! org-download
+  :recipe (:host github :repo "imxiangpeng/org-download"))
+
+(unpin! org-download)
+
+
 (package! rime)
 
