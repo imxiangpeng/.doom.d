@@ -102,7 +102,7 @@
 ;;  (lambda()
 ;;    (setq menu-bar-mode t)))
 ;; using pretty mode for org
-(add-hook! 'org-mode-hook #'+org-pretty-mode)
+;;(add-hook! 'org-mode-hook #'+org-pretty-mode)
 
 ;; projectile using default alien index method
 (after! projectile
