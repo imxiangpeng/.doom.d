@@ -117,7 +117,8 @@
 
 (after! org
   (setq org-log-done t)
-  (setq org-log-into-drawer t))
+  (setq org-log-into-drawer t)
+  (setq org-index-mode t))
 
 ;; must use setq-default to adjust buffer local var
 (after! org-download
