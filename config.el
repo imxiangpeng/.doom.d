@@ -151,12 +151,12 @@
   (after! undo-tree
     (setq undo-tree-auto-save-history nil)))
 
-(use-package! ggtags
-  :hook ((c-mode . ggtags-mode)
-         (c++-mode . ggtags-mode)
-         (java-mode . ggtags-mode))
-  :init
-  :config)
+;;(use-package! ggtags
+;;  :hook ((c-mode . ggtags-mode)
+;;         (c++-mode . ggtags-mode)
+;;         (java-mode . ggtags-mode))
+;;  :init
+;;  :config)
 
 ;;(use-package! counsel-gtags
 ;;  :hook ((c-mode . counsel-gtags-mode)
