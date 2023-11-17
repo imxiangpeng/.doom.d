@@ -78,6 +78,10 @@
 
 (unpin! org-download)
 
+(package! unicode-fonts
+  :recipe (:host github :repo "imxiangpeng/unicode-fonts"))
+
+(unpin! unicode-fonts)
 
 (package! rime)
 
