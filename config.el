@@ -38,8 +38,8 @@
 ;; we prefer to store attach in current dir
 (setq org-attach-id-dir "./data")
 (setq org-agenda-files (find-lisp-find-files "~/keeping/" "\.org$"))
-(setq +org-capture-journal-file "org/journal-2023.org")
-(setq +org-capture-todo-file "org/todo-2023.org")
+(setq +org-capture-journal-file "org/journal-2024.org")
+(setq +org-capture-todo-file "org/todo-2024.org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
