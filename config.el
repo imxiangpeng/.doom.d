@@ -123,7 +123,7 @@
   (setq org-log-into-drawer t)
   (setq org-index-mode t)
   (setq org-file-apps
-      '(("\\.pdf\\'" . "evince %s")))
+      '(("\\.pdf\\'" . "zathura %s")))
   )
 
 ;; must use setq-default to adjust buffer local var
