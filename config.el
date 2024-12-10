@@ -21,7 +21,10 @@
 ;; font string. You generally only need these two:
 ;;(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Hack Nerd Font" :size 16))
+(setq doom-font (font-spec :family "Hack Nerd Font" :size 18))
+(setq doom-big-font (font-spec :family "Hack Nerd Font" :size 25))
+
+(setq doom-upgrade-url "git@github.com:doomemacs/doomemacs")
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -118,7 +121,10 @@
 (after! org
   (setq org-log-done t)
   (setq org-log-into-drawer t)
-  (setq org-index-mode t))
+  (setq org-index-mode t)
+  (setq org-file-apps
+      '(("\\.pdf\\'" . "evince %s")))
+  )
 
 ;; must use setq-default to adjust buffer local var
 (after! org-download
@@ -186,5 +192,15 @@
   (rime-inline-predicate
         '(rime-predicate-space-after-ascii-p)))
 
-(load! "+bindings")
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args
+        '("-j=1"
+          "--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"
+          "--header-insertion=never"
+          "--header-insertion-decorators=0"))
+  (set-lsp-priority! 'clangd 2))
 
+
+(load! "+bindings")
