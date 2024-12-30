@@ -1,5 +1,5 @@
 ;; I prefer using default binding in insert mode
-(when (featurep! :editor evil +everywhere)
+(when (modulep! :editor evil +everywhere)
   (map!
     :gi "C-p" #'previous-line
     :gi "C-n" #'next-line

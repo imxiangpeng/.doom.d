@@ -150,10 +150,13 @@
   :after org-protocol)
 
 (use-package! ox-hugo
-  :after ox)
+  :after ox
+  :init
+  ;; markmap only support yaml meta information
+  (setq org-hugo-front-matter-format "yaml"))
 
 ;; disable persistent undo history
-(when (featurep! :editor undo +tree)
+(when (modulep! :editor undo +tree)
   (after! undo-tree
     (setq undo-tree-auto-save-history nil)))
 
@@ -201,6 +204,22 @@
           "--header-insertion=never"
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
+
+(defun org-hugo-export-markmap ()
+  "Export current Org file to Markdown using ox-hugo,
+  then generate and show a mind map in the browser."
+  (interactive)
+  (let* ((org-file (buffer-file-name))
+         (md-file (org-hugo-export-to-md nil nil))
+         (html-file (replace-regexp-in-string "\\.md$" ".html" md-file)))
+    (if md-file
+        (progn
+          (message "Exported to: %s" md-file)
+          (shell-command (format "markmap %s -o %s" md-file html-file))
+          (browse-url html-file))
+      (message "Error exporting to Markdown."))))
+
+(global-set-key (kbd "C-c h m") 'org-hugo-export-markmap)
 
 
 (load! "+bindings")
