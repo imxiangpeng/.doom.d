@@ -205,6 +205,11 @@
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
 
+(use-package! dts-mode
+  :mode ("\\.dts\\'" "\\.dtsi\\'")
+  :config
+  (setq dts-indent-level 4))
+
 (defun org-hugo-export-markmap ()
   "Export current Org file to Markdown using ox-hugo,
   then generate and show a mind map in the browser."
@@ -215,11 +220,12 @@
     (if md-file
         (progn
           (message "Exported to: %s" md-file)
-          (shell-command (format "markmap %s -o %s" md-file html-file))
+          (shell-command (format "markmap --no-open %s -o %s" md-file html-file))
           (browse-url html-file))
       (message "Error exporting to Markdown."))))
 
 (global-set-key (kbd "C-c h m") 'org-hugo-export-markmap)
+
 
 
 (load! "+bindings")

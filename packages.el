@@ -85,3 +85,4 @@
 
 (package! rime)
 
+(package! dts-mode)
