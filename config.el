@@ -132,6 +132,18 @@
   (setq-default org-download-image-dir "./assets")
   (setq-default org-download-heading-lvl nil))
 
+;; mxp, 20250108, org-mode now support yank-media
+;; which adjust file handler to org-dd-local-file-handler
+;; in dnd-protocol-alist
+;; but it leading org-download broken when draging files
+;; we prefer using org-download, so we use advice to
+;; override default org-setup-yank-dnd-handlers in org-mode's code
+(defun org--setup-yank-dnd-handlers-advice (&rest _args)
+  "Prevent `org-setup-yank-dnd-handlers` from overwriting `dnd-protocol-alist`."
+   (message "using org-download, org-setup-yank-dnd-handlers is disabled."))
+;; Add advice to override the behavior of `org-setup-yank-dnd-handlers`
+(advice-add 'org-setup-yank-dnd-handlers :override #'org--setup-yank-dnd-handlers-advice)
+
 (setq org-roam-v2-ack t)
 
 (after! org-roam
