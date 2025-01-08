@@ -139,8 +139,7 @@
 ;; we prefer using org-download, so we use advice to
 ;; override default org-setup-yank-dnd-handlers in org-mode's code
 (defun org--setup-yank-dnd-handlers-advice (&rest _args)
-  "Prevent `org-setup-yank-dnd-handlers` from overwriting `dnd-protocol-alist`."
-   (message "using org-download, org-setup-yank-dnd-handlers is disabled."))
+  "Prevent `org-setup-yank-dnd-handlers` from overwriting `dnd-protocol-alist`.")
 ;; Add advice to override the behavior of `org-setup-yank-dnd-handlers`
 (advice-add 'org-setup-yank-dnd-handlers :override #'org--setup-yank-dnd-handlers-advice)
 
