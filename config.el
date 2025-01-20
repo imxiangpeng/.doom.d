@@ -32,6 +32,9 @@
 ;;(setq doom-theme 'doom-one)
 (setq doom-theme 'spacemacs-light)
 
+;; exit without confirm
+(setq confirm-kill-emacs nil)
+
 (setq system-time-locale "C")
 
 ;; If you use `org' and don't want your org files in the default location below,
