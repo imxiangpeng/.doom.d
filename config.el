@@ -125,9 +125,77 @@
   (setq org-log-done t)
   (setq org-log-into-drawer t)
   (setq org-index-mode t)
+  (setq org-latex-compile 'xelatex)
   (setq org-file-apps
       '(("\\.pdf\\'" . "zathura %s")))
   )
+
+(after! ox-latex
+  ;;(setq org-latex-with-hyperref nil)
+  (setq org-latex-default-packages-alist
+        '(("" "fontspec" nil) ; 加载 fontspec 包
+          ("" "xunicode" nil) ; 支持 Unicode
+          ("" "xltxtra" nil)  ; 额外的 LaTeX 支持
+          ("AUTO" "inputenc" t) ; 自动检测输入编码
+          ("T1" "fontenc" t)    ; 使用 T1 字体编码
+          ("" "graphicx" t)     ; 支持图片
+          ("" "hyperref" nil)   ; 支持超链接
+          ("" "newfloat" nil)
+          ("" "minted" nil)
+          ("" "listings" nil)
+          ("" "xcolor" nil)))
+
+
+  ;;(setq org-latex-src-block-backend 'listings)
+  (setq org-latex-src-block-backend 'minted)
+
+  ;; clear page after title
+  (setq org-latex-title-command "\\maketitle\n\\clearpage")
+
+  (setq org-latex-pdf-process
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  (setq org-latex-default-class "article")
+
+  ;; 设置默认字体
+  ;; use fc-match serif/sans to lookup default font from system
+  ;; see: https://github.com/emacsmirror/org/blob/master/lisp/ox-latex.el
+  (setq org-latex-classes
+        '(("article"
+           "\\documentclass[12pt]{article}
+\\usepackage[a4paper,margin=1in,footskip=0.40in]{geometry}
+\\usepackage{fontspec}
+% \\setmainfont{Times New Roman} % 设置英文主字体
+% \\setsansfont{} % 设置英文无衬线字体
+% \\setmonofont{} % 设置英文等宽字体
+\\usepackage{xeCJK} % 支持中文字体
+\\setCJKmainfont{SimSun} % 设置中文主字体（宋体）
+\\setCJKsansfont{FangSong} % 设置中文无衬线字体（仿宋）
+\\setCJKmonofont{FangSong} % 设置中文等宽字体（楷体）
+\\usepackage[hidelinks]{hyperref}
+\\usepackage{tocloft}
+\\renewcommand{\\cftsecleader}{\\cftdotfill{\\cftdotsep}}
+\\renewcommand{\\contentsname}{\\centerline{\\bfseries 目录}} % 修改目录标题
+% \\renewcommand{\\cfttoctitlefont}{\\hfill\\Large\\bfseries} % 目录标题样式
+% \\setlength{\\cftsecindent}{0pt}
+\\usepackage{xcolor}
+\\usepackage{minted}
+\\setminted{
+  % bgcolor=LightGray, % 设置背景色
+  frame=single,        % 添加边框
+  framerule=1pt,       % 边框线宽度
+  framesep=5pt,        % 边框与代码的间距
+  style=emacs,        % 设置样式
+  fontsize=\\small,    % 设置字体大小
+  linenos=false,       % 显示行号
+  breaklines=true,     % 自动换行
+}"
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 
 ;; must use setq-default to adjust buffer local var
 (after! org-download
