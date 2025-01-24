@@ -179,17 +179,21 @@
 \\renewcommand{\\contentsname}{\\centerline{\\bfseries 目录}} % 修改目录标题
 % \\renewcommand{\\cfttoctitlefont}{\\hfill\\Large\\bfseries} % 目录标题样式
 % \\setlength{\\cftsecindent}{0pt}
+\\setlength{\\parindent}{0pt}  % 取消段落缩进
+\\setlength{\\parskip}{1em}     % 设置段落间距
 \\usepackage{xcolor}
 \\usepackage{minted}
 \\setminted{
-  % bgcolor=LightGray, % 设置背景色
-  frame=single,        % 添加边框
-  framerule=1pt,       % 边框线宽度
-  framesep=5pt,        % 边框与代码的间距
-  style=emacs,        % 设置样式
-  fontsize=\\small,    % 设置字体大小
+  bgcolor=gray!10, % 设置背景色
+  frame=none,        % 添加边框
+  % framerule=1pt,       % 边框线宽度
+  % framesep=5pt,        % 边框与代码的间距
+  % style=emacs,        % 设置样式
+  fontsize=\\footnotesize,    % 设置字体大小 tiny/scriptsize/footnotesize/small/normalsize/large
   linenos=false,       % 显示行号
   breaklines=true,     % 自动换行
+  breakautoindent=false,
+  breaksymbolleft={},
 }"
      ("\\section{%s}" . "\\section*{%s}")
      ("\\subsection{%s}" . "\\subsection*{%s}")
