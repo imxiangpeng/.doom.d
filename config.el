@@ -246,6 +246,11 @@
   (after! undo-tree
     (setq undo-tree-auto-save-history nil)))
 
+;; force using rg not use git grep
+(after! dumb-jump
+  (setq dumb-jump-force-searcher 'rg))
+
+
 ;;(use-package! ggtags
 ;;  :hook ((c-mode . ggtags-mode)
 ;;         (c++-mode . ggtags-mode)
