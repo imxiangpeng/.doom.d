@@ -260,7 +260,9 @@
          (c++-mode . ggtags-mode)
          (java-mode . ggtags-mode))
   :init
-  :config)
+  :config
+  ;; do not abreviate file name early ...
+  (setq ggtags-global-abbreviate-filename 128))
 
 ;;(use-package! counsel-gtags
 ;;  :hook ((c-mode . counsel-gtags-mode)
