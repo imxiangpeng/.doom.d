@@ -246,17 +246,21 @@
   (after! undo-tree
     (setq undo-tree-auto-save-history nil)))
 
-;; force using rg not use git grep
+;; always use rg never use git grep
 (after! dumb-jump
   (setq dumb-jump-force-searcher 'rg))
 
+;; using name ripgrep not rg
+(after! xref
+  (setq xref-search-program 'ripgrep))
 
-;;(use-package! ggtags
-;;  :hook ((c-mode . ggtags-mode)
-;;         (c++-mode . ggtags-mode)
-;;         (java-mode . ggtags-mode))
-;;  :init
-;;  :config)
+
+(use-package! ggtags
+  :hook ((c-mode . ggtags-mode)
+         (c++-mode . ggtags-mode)
+         (java-mode . ggtags-mode))
+  :init
+  :config)
 
 ;;(use-package! counsel-gtags
 ;;  :hook ((c-mode . counsel-gtags-mode)
