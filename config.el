@@ -262,7 +262,10 @@
   :init
   :config
   ;; do not abreviate file name early ...
-  (setq ggtags-global-abbreviate-filename 128))
+  (setq ggtags-global-abbreviate-filename 128
+        ggtags-auto-jump-to-match nil
+        ;; highlight slow
+        ggtags-highlight-tag nil))
 
 ;;(use-package! counsel-gtags
 ;;  :hook ((c-mode . counsel-gtags-mode)
@@ -301,6 +304,9 @@
           "--header-insertion=never"
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
+
+(after! eglot
+  (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy")))
 
 (use-package! dts-mode
   :mode ("\\.dts\\'" "\\.dtsi\\'")
