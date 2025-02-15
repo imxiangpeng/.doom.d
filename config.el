@@ -255,27 +255,21 @@
   (setq xref-search-program 'ripgrep))
 
 
-(use-package! ggtags
-  :hook ((c-mode . ggtags-mode)
-         (c++-mode . ggtags-mode)
-         (java-mode . ggtags-mode))
-  :init
-  :config
-  ;; do not abreviate file name early ...
-  (setq ggtags-global-abbreviate-filename 128
-        ggtags-auto-jump-to-match nil
-        ;; highlight slow
-        ggtags-highlight-tag nil))
-
-;;(use-package! counsel-gtags
-;;  :hook ((c-mode . counsel-gtags-mode)
-;;         (c++-mode . counsel-gtags-mode)
-;;         (java-mode . counsel-gtags-mode))
-;;  :init
-;;  :config
-;;  (define-key!
-;;    [remap +lookup/definition]    #'counsel-gtags-find-definition
-;;    [remap +lookup/references]    #'counsel-gtags-find-reference))
+;; mxp, 20250215, emacs's xref support global directly
+;; we can use  gd/gD to lookup definition & referenceso
+;; we only use global generate GPATH
+;; so no need use this ggtags now
+;; (use-package! ggtags
+;;   :hook ((c-mode . ggtags-mode)
+;;          (c++-mode . ggtags-mode)
+;;          (java-mode . ggtags-mode))
+;;   :init
+;;   :config
+;;   ;; do not abreviate file name early ...
+;;   (setq ggtags-global-abbreviate-filename 128
+;;         ggtags-auto-jump-to-match nil
+;;         ;; highlight slow
+;;         ggtags-highlight-tag nil))
 
 (use-package! rime
 :custom
