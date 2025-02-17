@@ -291,10 +291,10 @@
 
 (after! lsp-clangd
   (setq lsp-clients-clangd-args
-        '("-j=1"
+        '("-j=2"
           "--background-index"
-          "--clang-tidy"
-          "--completion-style=detailed"
+          ;;"--clang-tidy"
+          ;;"--completion-style=detailed"
           "--header-insertion=never"
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
