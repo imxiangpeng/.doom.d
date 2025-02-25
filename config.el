@@ -240,7 +240,8 @@
   :after ox
   :init
   ;; markmap only support yaml meta information
-  (setq org-hugo-front-matter-format "yaml"))
+  (setq org-hugo-front-matter-format "yaml")
+  (setq org-hugo-headline-anchor nil))
 
 ;; disable persistent undo history
 (when (modulep! :editor undo +tree)
