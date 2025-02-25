@@ -66,8 +66,6 @@
 (package! ox-hugo
   :recipe (:host github :repo "kaushalmodi/ox-hugo"))
 
-(package! counsel-gtags)
-
 (package! ox-hugo
   :recipe (:host github :repo "imxiangpeng/ox-hugo"))
 
