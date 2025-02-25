@@ -71,6 +71,7 @@
 (setq default-directory "~")
 
 (setq projectile-enable-caching t)
+(setq projectile-fd-executable "fd")
 ;; mxp, 20220218, do not auto delete projectile's cache
 ;; we enlarge the limit size
 (setq doom-projectile-cache-limit 90000000)
