@@ -63,8 +63,8 @@
 (package! org-roam-server
   :recipe (:host github :repo "org-roam/org-roam-server"))
 
-(package! ox-hugo
-  :recipe (:host github :repo "kaushalmodi/ox-hugo"))
+;;(package! ox-hugo
+;;  :recipe (:host github :repo "kaushalmodi/ox-hugo"))
 
 (package! ox-hugo
   :recipe (:host github :repo "imxiangpeng/ox-hugo"))

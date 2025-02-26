@@ -309,22 +309,30 @@
   :config
   (setq dts-indent-level 4))
 
+;; 主要修改点：
+;; 1. 链接倾向于使用 []()
+;; 2. 图片倾向于使用 ![]()
+;; 3. 裸链接继续保持 <>
 (defun org-hugo-export-markmap ()
   "Export current Org file to Markdown using ox-hugo,
-  then generate and show a mind map in the browser."
+  then generate and show a mind map in the browser.
+  Temporarily toggles org-hugo--prefer-md-link-style."
   (interactive)
-  (let* ((org-file (buffer-file-name))
-         (md-file (org-hugo-export-to-md nil nil))
-         (html-file (replace-regexp-in-string "\\.md$" ".html" md-file)))
-    (if md-file
+  (require 'ox-hugo)
+  (let ((original-value org-hugo--prefer-md-link-style))
+    (unwind-protect
         (progn
-          (message "Exported to: %s" md-file)
-          (shell-command (format "markmap --no-open %s -o %s" md-file html-file))
-          (browse-url html-file))
-      (message "Error exporting to Markdown."))))
+          (setq org-hugo--prefer-md-link-style t)
+          (let* ((md-file (org-hugo-export-to-md nil nil))
+                 (html-file (replace-regexp-in-string "\\.md$" ".html" md-file)))
+            (if md-file
+                (progn
+                  (message "Exported to: %s" md-file)
+                  (shell-command (format "markmap --no-open %s -o %s" md-file html-file))
+                  (browse-url html-file))
+              (message "Error exporting to Markdown."))))
+      (setq org-hugo--prefer-md-link-style original-value))))
 
 (global-set-key (kbd "C-c h m") 'org-hugo-export-markmap)
-
-
 
 (load! "+bindings")
