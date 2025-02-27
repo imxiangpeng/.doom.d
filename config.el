@@ -72,6 +72,7 @@
 
 (setq projectile-enable-caching t)
 (setq projectile-fd-executable "fd")
+(setq projectile-auto-discover nil)
 ;; mxp, 20220218, do not auto delete projectile's cache
 ;; we enlarge the limit size
 (setq doom-projectile-cache-limit 90000000)
@@ -301,8 +302,13 @@
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
 
+;; support user own env path
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 (after! eglot
-  (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy")))
+  (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
+  (set-eglot-client! 'sh-mode '("bash-language-server" "start")))
 
 (use-package! dts-mode
   :mode ("\\.dts\\'" "\\.dtsi\\'")
