@@ -237,6 +237,22 @@
 (use-package! org-roam-protocol
   :after org-protocol)
 
+(use-package! md-roam
+  :after (org-roam)
+  :demand t
+  :custom
+  (org-roam-file-extensions '("org" "md"))
+  :config
+  ;; md-roam-mode must be active before org-roam-db-sync
+  (md-roam-mode 1)
+  ;; autosync-mode triggers db-sync. md-roam-mode must be already active
+  (org-roam-db-autosync-mode 1)
+  (add-to-list 'org-roam-capture-templates
+      '("m" "Markdown" plain "" :target
+          (file+head "%<%Y-%m-%dT%H%M%S>.md"
+  "---\ntitle: ${title}\nid: %<%Y-%m-%dT%H%M%S>\ncategory: \n---\n")
+      :unnarrowed t)))
+
 (use-package! ox-hugo
   :after ox
   :init

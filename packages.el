@@ -63,6 +63,9 @@
 (package! org-roam-server
   :recipe (:host github :repo "org-roam/org-roam-server"))
 
+(package! md-roam
+  :recipe (:host github :repo "nobiot/md-roam"))
+
 ;;(package! ox-hugo
 ;;  :recipe (:host github :repo "kaushalmodi/ox-hugo"))
 
