@@ -130,8 +130,8 @@
 (after! org
   (setq org-log-done t)
   (setq org-log-into-drawer t)
-  (setq org-index-mode nil)
   (setq org-latex-compile 'xelatex)
+  ;;(setq org-startup-indented nil) ;; disable org-indent-mode
   (setq org-file-apps
       '(("\\.pdf\\'" . "zathura %s")))
   )
@@ -142,13 +142,14 @@
   (setq org-modern-fold-stars nil
         org-modern-hide-stars nil
         org-modern-priority nil
-        org-modern-progress nil)
+        org-modern-progress nil
+        org-modern-label-border 0.3)
   (setq org-modern-star 'replace
         org-modern-replace-stars "◉○◈◇✳✦")
   (set-face-attribute 'org-modern-label nil
                       :height 1.0
                       :weight 'bold
-                      :underline t)
+                      :underline nil)
   (setq org-modern-todo nil)
 ;;org-modern-todo-faces
 ;;        (quote (("TODO" :height 1.0 :background "#cc9393" :foreground "#d0bf8f")))))
@@ -157,10 +158,8 @@
           (?- . "☹")
           (?\s . "☐"))))
 
-;; org-modern-hide-stars nil
-;; org-modern-priority nil
-;; rg-modern-table t
-;;        org-modern-block-fringe t
+(use-package! org-modern-indent
+  :hook (org-mode . org-modern-indent-mode))
 
 (after! ox-latex
   ;;(setq org-latex-with-hyperref nil)
