@@ -87,3 +87,4 @@
 (package! rime)
 
 (package! dts-mode)
+(package! org-modern)

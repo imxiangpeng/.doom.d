@@ -22,6 +22,7 @@
 ;;(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "Hack Nerd Font" :size 18))
+(setq doom-variable-pitch-font(font-spec :family "Hack Nerd Font" :size 18))
 (setq doom-big-font (font-spec :family "Hack Nerd Font" :size 25))
 
 (setq doom-upgrade-url "git@github.com:doomemacs/doomemacs")
@@ -76,6 +77,7 @@
 ;; mxp, 20220218, do not auto delete projectile's cache
 ;; we enlarge the limit size
 (setq doom-projectile-cache-limit 90000000)
+(setq doom-projectile-cache-purge-non-projects t)
 
 (setq gc-cons-threshold 20000000)
 (setq large-file-warning-threshold 200000000)
@@ -104,6 +106,8 @@
 ;; it causing too much space in empty line
 (setq markdown-indent-on-enter nil)
 
+(setq magit-show-long-lines-warning nil)
+
 ;; max window size, when startup
 (add-hook! 'window-setup-hook #'toggle-frame-maximized)
 ;;(add-hook! 'window-setup-hook
@@ -126,11 +130,37 @@
 (after! org
   (setq org-log-done t)
   (setq org-log-into-drawer t)
-  (setq org-index-mode t)
+  (setq org-index-mode nil)
   (setq org-latex-compile 'xelatex)
   (setq org-file-apps
       '(("\\.pdf\\'" . "zathura %s")))
   )
+
+(use-package! org-modern
+  :hook (org-mode . global-org-modern-mode)
+  :config
+  (setq org-modern-fold-stars nil
+        org-modern-hide-stars nil
+        org-modern-priority nil
+        org-modern-progress nil)
+  (setq org-modern-star 'replace
+        org-modern-replace-stars "◉○◈◇✳✦")
+  (set-face-attribute 'org-modern-label nil
+                      :height 1.0
+                      :weight 'bold
+                      :underline t)
+  (setq org-modern-todo nil)
+;;org-modern-todo-faces
+;;        (quote (("TODO" :height 1.0 :background "#cc9393" :foreground "#d0bf8f")))))
+  (setq org-modern-checkbox
+        '((?X . "✔")
+          (?- . "☹")
+          (?\s . "☐"))))
+
+;; org-modern-hide-stars nil
+;; org-modern-priority nil
+;; rg-modern-table t
+;;        org-modern-block-fringe t
 
 (after! ox-latex
   ;;(setq org-latex-with-hyperref nil)
