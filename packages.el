@@ -92,3 +92,5 @@
 (package! org-modern-indent
   :recipe (:host github :repo "jdtsmith/org-modern-indent"))
 
+(package! svg-tag-mode
+  :recipe (:host github :repo "rougier/svg-tag-mode"))
