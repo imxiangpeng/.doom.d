@@ -132,6 +132,7 @@
   (setq org-log-done t)
   (setq org-log-into-drawer t)
   (setq org-latex-compile 'xelatex)
+  (setq org-ellipsis "...")
   ;;(setq org-startup-indented nil) ;; disable org-indent-mode
   (setq org-file-apps
       '(("\\.pdf\\'" . "zathura %s")))
