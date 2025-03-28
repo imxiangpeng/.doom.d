@@ -49,9 +49,9 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;; (package! ggtags
-;;   :recipe (:host github :repo "leoliu/ggtags"
-;;            :files ("ggtags.el")))
+(package! ggtags
+  :recipe (:host github :repo "leoliu/ggtags"
+           :files ("ggtags.el")))
 
 (package! spacemacs-theme)
 
@@ -87,6 +87,11 @@
 (package! rime)
 
 (package! dts-mode)
+
+(package! org-appear)
+(package! org-superstar)
+(package! org-fancy-priorities)
+
 (package! org-modern)
 
 (package! org-modern-indent
@@ -94,3 +99,14 @@
 
 (package! svg-tag-mode
   :recipe (:host github :repo "rougier/svg-tag-mode"))
+
+;;(package! olivetti
+;;  :recipe (:host github :repo "rnkn/olivetti"))
+
+
+;;(package! org-present
+;;  :recipe (:host github :repo "rlister/org-present"))
+
+
+;;(package! org-fragtog
+;;  :recipe (:host github :repo "io12/org-fragtog"))

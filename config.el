@@ -126,6 +126,8 @@
   (setq projectile-globally-ignored-directories
         (append projectile-globally-ignored-directories '("out" ".git" "prebuilts" "tests"))))
 
+;;(setq tramp-verbose 10)
+;;(setq tramp-debug-to-file t)
 (after! org
   (setq org-log-done t)
   (setq org-log-into-drawer t)
@@ -135,27 +137,60 @@
       '(("\\.pdf\\'" . "zathura %s")))
   )
 
-(use-package! org-modern
-  :hook (org-mode . global-org-modern-mode)
+;; (add-hook 'org-mode-hook #'(lambda () (electric-indent-local-mode -1)))
+
+(use-package! org-superstar ; "prettier" bullets
+  :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-modern-fold-stars nil
-        org-modern-hide-stars nil
-        org-modern-priority nil
-        org-modern-progress nil
-        org-modern-label-border 0.3)
-  (setq org-modern-star 'replace
-        org-modern-replace-stars "◉○◈◇✳✦")
-  (set-face-attribute 'org-modern-label nil
-                      :height 1.0
-                      :weight 'bold
-                      :underline nil)
-  (setq org-modern-todo nil)
-;;org-modern-todo-faces
-;;        (quote (("TODO" :height 1.0 :background "#cc9393" :foreground "#d0bf8f")))))
-  (setq org-modern-checkbox
-        '((?X . "✔")
-          (?- . "☹")
-          (?\s . "☐"))))
+  ;; Make leading stars truly invisible, by rendering them as spaces!
+  (setq org-superstar-leading-bullet ?\s
+        org-superstar-leading-fallback ?\s
+        org-hide-leading-stars nil
+        org-indent-mode-turns-on-hiding-stars nil
+        org-superstar-todo-bullet-alist
+        '(("TODO" . 9744)
+          ("[ ]"  . 9744)
+          ("DONE" . 9745)
+          ("[X]"  . 9745))))
+
+
+;;(use-package! org-fancy-priorities ; priority icons
+;;  ;;:hook (org-mode . org-fancy-priorities-mode)
+;;  ;;:hook (org-agenda-mode . org-fancy-priorities-mode)
+;;  :config
+;;  (setq org-fancy-priorities-list '("⚑" "⬆" "■"))
+;;  ;; HACK: Prevent org-fancy-priorities from interfering with org exporters or
+;;  ;;   other non-interactive Org crawlers/parsers (see #8280).
+;;  (defadvice! +org--inhibit-org-fancy-in-non-real-buffers-a (&rest _)
+;;    :before-until #'org-fancy-priorities-mode
+;;    org-inhibit-startup))
+
+;;(add-hook 'org-mode-hook
+;;          (lambda ()
+;;            (run-with-idle-timer 1 nil (lambda ()
+;;                                         (org-superstar-mode)))))
+
+;;(use-package! org-modern
+;;  :hook (org-mode . global-org-modern-mode)
+;;  :config
+;;  (setq org-modern-fold-stars nil
+;;        org-modern-hide-stars nil
+;;        org-modern-priority nil
+;;        org-modern-progress nil
+;;        org-modern-label-border 0.3)
+;;  (setq org-modern-star 'replace
+;;        org-modern-replace-stars "◉○◈◇✳✦")
+;;  (set-face-attribute 'org-modern-label nil
+;;                      :height 1.0
+;;                      :weight 'bold
+;;                      :underline nil)
+;;  (setq org-modern-todo nil)
+;;;;org-modern-todo-faces
+;;;;        (quote (("TODO" :height 1.0 :background "#cc9393" :foreground "#d0bf8f")))))
+;;  (setq org-modern-checkbox
+;;        '((?X . "✔")
+;;          (?- . "☹")
+;;          (?\s . "☐"))))
 
 (use-package! org-modern-indent
   :hook (org-mode . org-modern-indent-mode))
@@ -386,17 +421,18 @@
 ;; we can use  gd/gD to lookup definition & referenceso
 ;; we only use global generate GPATH
 ;; so no need use this ggtags now
-;; (use-package! ggtags
-;;   :hook ((c-mode . ggtags-mode)
-;;          (c++-mode . ggtags-mode)
-;;          (java-mode . ggtags-mode))
-;;   :init
-;;   :config
-;;   ;; do not abreviate file name early ...
-;;   (setq ggtags-global-abbreviate-filename 128
-;;         ggtags-auto-jump-to-match nil
-;;         ;; highlight slow
-;;         ggtags-highlight-tag nil))
+(use-package! ggtags
+  :hook ((c-mode . ggtags-mode)
+         (c++-mode . ggtags-mode)
+         (java-mode . ggtags-mode))
+  :init
+  :config
+  ;; do not abreviate file name early ...
+  (setq ggtags-global-abbreviate-filename 128
+        ggtags-auto-jump-to-match nil
+        ;; highlight slow
+        ;; but we can use S-mouse-1 or S-mouse-3
+        ggtags-highlight-tag 1.0))
 
 (use-package! rime
 :custom
@@ -428,7 +464,8 @@
 
 ;; support user own env path
 (after! tramp
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  (setq tramp-connection-timeout 60))
 
 (after! eglot
   (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
