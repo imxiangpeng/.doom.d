@@ -391,16 +391,18 @@
   (md-roam-mode 1)
   ;; autosync-mode triggers db-sync. md-roam-mode must be already active
   (org-roam-db-autosync-mode 1)
-  ;(add-to-list 'org-roam-capture-templates
-  ;    '("m" "Markdown" plain "" :target
-  ;        (file+head "%<%Y%m%d%H%M%S>-${slug}.md"
-  ;"---\ntitle: ${title}\nid: %<%Y%m%d%H%M%S>\ncategory: \n---\n")
-  ;    :unnarrowed t))
-  (appendq! org-roam-capture-templates
-            '(("m" "Markdown" plain "" :target
-              (file+head "%<%Y%m%d%H%M%S>-${slug}.md"
-                         "---\ntitle: ${title}\nid: %<%Y%m%d%H%M%S>\ncategory: \n---\n")
-              :unnarrowed t))))
+  ;; mxp, 20250925, roam-md must be placed before org;
+  ;; otherwise there maybe problem when we using chinese
+  (add-to-list 'org-roam-capture-templates
+      '("m" "Markdown" plain "" :target
+          (file+head "%<%Y%m%d%H%M%S>-${slug}.md"
+  "---\ntitle: ${title}\nid: %<%Y%m%d%H%M%S>\ncategory: \n---\n")
+      :unnarrowed t)))
+  ;; (appendq! org-roam-capture-templates
+  ;;           '(("m" "Markdown" plain "" :target
+  ;;             (file+head "%<%Y%m%d%H%M%S>-${slug}.md"
+  ;;                        "---\ntitle: ${title}\nid: %<%Y%m%d%H%M%S>\ncategory: \n---\n")
+  ;;             :unnarrowed t))))
 
 (use-package! ox-hugo
   :after ox
