@@ -508,4 +508,13 @@
 
 (global-set-key (kbd "C-c h m") 'org-hugo-export-markmap)
 
+;; disable undo-tree when opening log files
+;; which may causing select encoding
+(defun disable-undo-tree-completely-for-logs ()
+  (when (and buffer-file-name
+             (string-match "\\.log\\'" buffer-file-name))
+    (undo-tree-mode -1)))
+
+(add-hook 'find-file-hook #'disable-undo-tree-completely-for-logs)
+
 (load! "+bindings")
