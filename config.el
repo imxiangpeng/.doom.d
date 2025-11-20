@@ -23,6 +23,8 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "Hack Nerd Font" :size 18))
 (setq doom-big-font (font-spec :family "Hack Nerd Font" :size 25))
+(setq doom-variable-pitch-font (font-spec :family "Hack Nerd Font" :size 18))
+
 
 (setq doom-upgrade-url "git@github.com:doomemacs/doomemacs")
 
@@ -43,7 +45,7 @@
 ;;(setq org-attach-id-dir "~/keeping/attachments")
 ;; we prefer to store attach in current dir
 (setq org-attach-id-dir "./data")
-(setq org-agenda-files (find-lisp-find-files "~/keeping/" "\.org$"))
+(setq org-agenda-files (find-lisp-find-files "~/keeping/org" "\.org$"))
 (setq +org-capture-journal-file "org/journal-2025.org")
 (setq +org-capture-todo-file "org/todo-2025.org")
 
@@ -374,9 +376,9 @@
   ;; so we adjust the capture directory, prefixed with roam/
   (setq org-roam-directory "~/keeping/roam")
   ;; default org-roam-buffer-width is 0.33
-  (setq org-roam-buffer-width 0.20)
+  (setq org-roam-buffer-width 0.10)
   ;;(setq org-roam-db-location "~/keeping/roam")
-  (setq +org-roam-open-buffer-on-find-file nil))
+  (setq +org-roam-open-buffer-on-find-file t))
 
 (use-package! org-roam-protocol
   :after org-protocol)
