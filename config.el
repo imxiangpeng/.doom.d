@@ -109,6 +109,8 @@
 
 (setq magit-show-long-lines-warning nil)
 
+(setq pixel-scroll-precision-mode t)
+
 ;; max window size, when startup
 (add-hook! 'window-setup-hook #'toggle-frame-maximized)
 ;;(add-hook! 'window-setup-hook
@@ -366,8 +368,6 @@
 ;; Add advice to override the behavior of `org-setup-yank-dnd-handlers`
 (advice-add 'org-setup-yank-dnd-handlers :override #'org--setup-yank-dnd-handlers-advice)
 
-(setq org-roam-v2-ack t)
-
 (after! org-roam
   ;; fixed bug in windows, force using immediate
   (setq org-roam-db-update-method 'immediate)
@@ -378,7 +378,12 @@
   ;; default org-roam-buffer-width is 0.33
   (setq org-roam-buffer-width 0.10)
   ;;(setq org-roam-db-location "~/keeping/roam")
-  (setq +org-roam-open-buffer-on-find-file t))
+  (setq +org-roam-auto-backlinks-buffer t)
+  (set-popup-rules!
+    `((,(regexp-quote org-roam-buffer) ; persistent org-roam buffer
+       :side right :width 0.15 :height 0.5 :ttl nil :modeline nil :quit nil :slot 1)
+      ("^\\*org-roam: " ; node dedicated org-roam buffer
+       :side right :width 0.15 :height 0.5 :ttl nil :modeline nil :quit nil :slot 2))))
 
 (use-package! org-roam-protocol
   :after org-protocol)
