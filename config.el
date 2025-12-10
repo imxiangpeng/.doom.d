@@ -524,6 +524,11 @@
          ;; Define common Pandoc options
          (pandoc-options (concat "--pdf-engine=xelatex "
                                  "--toc "
+                                 "--number-sections "
+                                 "--highlight-style=pygments "
+                                 "--listings "
+                                 "--template eisvogel "
+                                 "-V urlcolor=blue -V linkcolor=red "
                                  "--variable mainfont='Noto Serif' "
                                  "--variable sansfont='Noto Sans' "
                                  "--variable CJKmainfont='Noto Serif CJK SC' "
