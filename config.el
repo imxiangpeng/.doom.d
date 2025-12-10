@@ -514,6 +514,7 @@
       (setq org-hugo--prefer-md-link-style original-value))))
 
 ;; gpt generated
+;; you can add watermark, using "--watermark watermarktext "
 (defun direct-pandoc-to-pdf ()
   "Convert the current file (markdown or org) to PDF using Pandoc, and save it to ~/Documents."
   (interactive)
@@ -525,7 +526,6 @@
          (pandoc-options (concat "--pdf-engine=xelatex "
                                  "--toc "
                                  "--number-sections "
-                                 "--highlight-style=pygments "
                                  "--listings "
                                  "--template eisvogel "
                                  "-V urlcolor=blue -V linkcolor=red "
@@ -538,9 +538,17 @@
     ;; Ensure the output directory exists, create it if not
     (unless (file-directory-p output-dir)
       (make-directory output-dir t))
-    ;; Execute the pandoc command
-    (shell-command pandoc-command)
-    (message "PDF saved to: %s" output-pdf)))
+    ;; Start the Pandoc process asynchronously
+    (message "%s" pandoc-command)
+    (let ((proc (start-process-shell-command "pandoc" "*Pandoc Conversion Output*" pandoc-command)))
+      ;; Set a process sentinel to handle completion events
+      (set-process-sentinel proc
+                            (lambda (process event)
+                              (let ((output (with-current-buffer (process-buffer process)
+                                              (buffer-string))))
+                                (if (string= event "finished\n")
+                                    (message "PDF successfully saved to: %s" output-pdf)
+                                  (message "Pandoc conversion failed with event: %s" event))))))))
 
 (global-set-key (kbd "C-c h m") 'org-hugo-export-markmap)
 ;; Bind the function to C-c h p
