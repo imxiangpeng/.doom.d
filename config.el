@@ -513,7 +513,33 @@
               (message "Error exporting to Markdown."))))
       (setq org-hugo--prefer-md-link-style original-value))))
 
+;; gpt generated
+(defun direct-pandoc-to-pdf ()
+  "Convert the current file (markdown or org) to PDF using Pandoc, and save it to ~/Documents."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (output-dir (concat (file-name-as-directory "~/Documents") "pdfs/"))
+         ;; Create the directory if it doesn't exist
+         (output-pdf (concat output-dir (file-name-base file) ".pdf"))
+         ;; Define common Pandoc options
+         (pandoc-options (concat "--pdf-engine=xelatex "
+                                 "--toc "
+                                 "--variable mainfont='Noto Serif' "
+                                 "--variable sansfont='Noto Sans' "
+                                 "--variable CJKmainfont='Noto Serif CJK SC' "
+                                 "--variable CJKsansfont='Noto Sans CJK SC'"))
+         ;; Construct the complete pandoc command with input and output files
+         (pandoc-command (concat "pandoc " pandoc-options " " file " -o " output-pdf)))
+    ;; Ensure the output directory exists, create it if not
+    (unless (file-directory-p output-dir)
+      (make-directory output-dir t))
+    ;; Execute the pandoc command
+    (shell-command pandoc-command)
+    (message "PDF saved to: %s" output-pdf)))
+
 (global-set-key (kbd "C-c h m") 'org-hugo-export-markmap)
+;; Bind the function to C-c h p
+(global-set-key (kbd "C-c h p") 'direct-pandoc-to-pdf)
 
 ;; disable undo-tree when opening log files
 ;; which may causing select encoding
@@ -523,5 +549,6 @@
     (undo-tree-mode -1)))
 
 (add-hook 'find-file-hook #'disable-undo-tree-completely-for-logs)
+
 
 (load! "+bindings")
