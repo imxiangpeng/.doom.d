@@ -141,7 +141,16 @@
   ;;(setq org-startup-indented nil) ;; disable org-indent-mode
   (setq org-file-apps
       '(("\\.pdf\\'" . "zathura %s")))
-  )
+  (setq org-capture-templates
+        '(("t" "Personal todo" entry
+           (file +org-capture-todo-file) ;; (file+headline +org-capture-todo-file "Inbox")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("n" "Personal notes" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %u %?\n%i\n%a" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend nil))))
 
 ;; (add-hook 'org-mode-hook #'(lambda () (electric-indent-local-mode -1)))
 
