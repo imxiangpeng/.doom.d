@@ -45,9 +45,11 @@
 ;;(setq org-attach-id-dir "~/keeping/attachments")
 ;; we prefer to store attach in current dir
 (setq org-attach-id-dir "./data")
-(setq org-agenda-files (find-lisp-find-files "~/keeping/org" "\.org$"))
+(setq org-agenda-files
+      (find-lisp-find-files "~/keeping" "^todo[^/]*\\.org$\\|^2025[^/]*\\.org$"))
+
 (setq +org-capture-journal-file "org/journal-2025.org")
-(setq +org-capture-todo-file "org/todo-2025.org")
+(setq +org-capture-todo-file "org/todo/todo-2025.org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -135,7 +137,6 @@
 (after! org
   (setq org-log-done t)
   (setq org-log-into-drawer t)
-  (setq org-latex-compile 'xelatex)
   (setq org-ellipsis "...")
   ;;(setq org-startup-indented nil) ;; disable org-indent-mode
   (setq org-file-apps
@@ -281,13 +282,14 @@
              (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0 :face 'org-date)))))))
 
 (after! ox-latex
+  (setq org-latex-compiler "lualatex")
   ;;(setq org-latex-with-hyperref nil)
   (setq org-latex-default-packages-alist
         '(("" "fontspec" nil) ; 加载 fontspec 包
           ("" "xunicode" nil) ; 支持 Unicode
           ("" "xltxtra" nil)  ; 额外的 LaTeX 支持
-          ("AUTO" "inputenc" t) ; 自动检测输入编码
-          ("T1" "fontenc" t)    ; 使用 T1 字体编码
+          ("AUTO" "inputenc" nil) ; 自动检测输入编码
+          ("T1" "fontenc" nil)    ; 使用 T1 字体编码
           ("" "graphicx" t)     ; 支持图片
           ("" "hyperref" nil)   ; 支持超链接
           ("" "newfloat" nil)
@@ -302,9 +304,9 @@
   ;; clear page after title
   (setq org-latex-title-command "\\maketitle\n\\clearpage")
 
-  (setq org-latex-pdf-process
-        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  ;;(setq org-latex-pdf-process
+  ;;      '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+  ;;        "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   (setq org-latex-default-class "article")
 
@@ -316,13 +318,12 @@
            "\\documentclass[12pt]{article}
 \\usepackage[a4paper,margin=1in,footskip=0.40in]{geometry}
 \\usepackage{fontspec}
-% \\setmainfont{Times New Roman} % 设置英文主字体
-% \\setsansfont{} % 设置英文无衬线字体
-% \\setmonofont{} % 设置英文等宽字体
-\\usepackage{xeCJK} % 支持中文字体
-\\setCJKmainfont{SimSun} % 设置中文主字体（宋体）
-\\setCJKsansfont{FangSong} % 设置中文无衬线字体（仿宋）
-\\setCJKmonofont{FangSong} % 设置中文等宽字体（楷体）
+\\usepackage{ctex}
+\\setmainfont{Noto Serif}
+\\setsansfont{Noto Sans}
+\\setCJKmainfont{Noto Serif CJK SC}
+\\setCJKsansfont{Noto Sans CJK SC}
+\\setCJKmonofont{Noto Sans Mono CJK SC}
 \\usepackage[hidelinks]{hyperref}
 \\usepackage{tocloft}
 \\renewcommand{\\cftsecleader}{\\cftdotfill{\\cftdotsep}}
@@ -332,6 +333,7 @@
 \\setlength{\\parindent}{0pt}  % 取消段落缩进
 \\setlength{\\parskip}{1em}     % 设置段落间距
 \\usepackage{xcolor}
+\\setcounter{secnumdepth}{5}
 \\usepackage{minted}
 \\setminted{
   bgcolor=gray!10, % 设置背景色
@@ -378,7 +380,7 @@
   ;; default org-roam-buffer-width is 0.33
   (setq org-roam-buffer-width 0.10)
   ;;(setq org-roam-db-location "~/keeping/roam")
-  (setq +org-roam-auto-backlinks-buffer t)
+  (setq +org-roam-auto-backlinks-buffer nil)
   (set-popup-rules!
     `((,(regexp-quote org-roam-buffer) ; persistent org-roam buffer
        :side right :width 0.15 :height 0.5 :ttl nil :modeline nil :quit nil :slot 1)
@@ -523,16 +525,20 @@
          ;; Create the directory if it doesn't exist
          (output-pdf (concat output-dir (file-name-base file) ".pdf"))
          ;; Define common Pandoc options
-         (pandoc-options (concat "--pdf-engine=xelatex "
+         (pandoc-options (concat "--pdf-engine=lualatex "
                                  "--toc "
                                  "--number-sections "
                                  "--listings "
                                  "--template eisvogel "
                                  "-V urlcolor=blue -V linkcolor=red "
+                                 "-V toc-own-page=true "
                                  "--variable mainfont='Noto Serif' "
                                  "--variable sansfont='Noto Sans' "
+                                 "--variable monofont='Noto Sans Mono' "
                                  "--variable CJKmainfont='Noto Serif CJK SC' "
-                                 "--variable CJKsansfont='Noto Sans CJK SC'"))
+                                 "--variable CJKsansfont='Noto Sans CJK SC' "
+                                 "--variable CJKmonofont='Noto Sans Mono CJK SC'"))
+
          ;; Construct the complete pandoc command with input and output files
          (pandoc-command (concat "pandoc " pandoc-options " " file " -o " output-pdf)))
     ;; Ensure the output directory exists, create it if not
