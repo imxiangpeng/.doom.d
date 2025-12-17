@@ -295,19 +295,20 @@
   (setq org-latex-compiler "xelatex")
   ;;(setq org-latex-with-hyperref nil)
 
-  (setq org-latex-default-packages-alist
-        '(("" "fontspec" nil) ; 加载 fontspec 包
-          ("" "xunicode" nil) ; 支持 Unicode
-          ("" "xltxtra" nil)  ; 额外的 LaTeX 支持
-          ("AUTO" "inputenc" nil) ; 自动检测输入编码
-          ("T1" "fontenc" nil)    ; 使用 T1 字体编码
-          ("" "graphicx" t)     ; 支持图片
-          ("" "hyperref" nil)   ; 支持超链接
-          ("" "newfloat" nil)
-          ("" "minted" nil)
-          ("" "listings" nil)
-          ("" "xcolor" nil)))
+  ;; (setq org-latex-default-packages-alist
+  ;;       '(("" "fontspec" nil) ; 加载 fontspec 包
+  ;;         ("" "graphicx" t)     ; 支持图片
+  ;;         ("" "hyperref" nil)   ; 支持超链接
+  ;;         ("" "newfloat" nil)
+  ;;         ("" "minted" nil)
+  ;;         ("" "listings" nil)
+  ;;         ("" "xcolor" nil)))
 
+  (setq org-latex-packages-alist
+        '(("" "newfloat" nil)
+          ("" "minted" nil)
+          ("" "xcolor" nil)
+          ("" "ctex" nil)))
 
   ;;(setq org-latex-src-block-backend 'listings)
   (setq org-latex-src-block-backend 'minted)
