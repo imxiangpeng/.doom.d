@@ -291,8 +291,10 @@
              (svg-tag-make tag :end -1 :inverse t :crop-left t :margin 0 :face 'org-date)))))))
 
 (after! ox-latex
-  (setq org-latex-compiler "lualatex")
+  ;; use xelatex, lualatex too slow
+  (setq org-latex-compiler "xelatex")
   ;;(setq org-latex-with-hyperref nil)
+
   (setq org-latex-default-packages-alist
         '(("" "fontspec" nil) ; 加载 fontspec 包
           ("" "xunicode" nil) ; 支持 Unicode
@@ -313,9 +315,12 @@
   ;; clear page after title
   (setq org-latex-title-command "\\maketitle\n\\clearpage")
 
-  ;;(setq org-latex-pdf-process
-  ;;      '("lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-  ;;        "lualatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  ;; toc own page
+  (setq org-latex-toc-command "\\tableofcontents\n\n\\clearpage")
+
+  (setq org-latex-pdf-process
+        '("xelatex --verbose -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   (setq org-latex-default-class "article")
 
