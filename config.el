@@ -318,9 +318,9 @@
   ;; toc own page
   (setq org-latex-toc-command "\\tableofcontents\n\n\\clearpage")
 
-  (setq org-latex-pdf-process
-        '("xelatex --verbose -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  ;; (setq org-latex-pdf-process
+  ;;      '("xelatex --verbose -shell-escape -interaction nonstopmode -output-directory %o %f"
+  ;;        "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   (setq org-latex-default-class "article")
 
