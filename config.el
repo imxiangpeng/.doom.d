@@ -49,7 +49,7 @@
       (find-lisp-find-files "~/keeping" "^todo[^/]*\\.org$\\|^2025[^/]*\\.org$"))
 
 (setq +org-capture-journal-file "org/journal-2025.org")
-(setq +org-capture-todo-file "org/todo/todo-2025.org")
+(setq +org-capture-todo-file "org/todo-2025.org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
