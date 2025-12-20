@@ -46,7 +46,11 @@
 ;; we prefer to store attach in current dir
 (setq org-attach-id-dir "./data")
 (setq org-agenda-files
-      (find-lisp-find-files "~/keeping" "^todo[^/]*\\.org$\\|^2025[^/]*\\.org$"))
+      (append
+       (find-lisp-find-files "~/keeping" "^todo[^/]*\\.org$")
+       (find-lisp-find-files "~/keeping/roam" "^2025[^/]*\\.org$")
+       (find-lisp-find-files "~/keeping/org/todo" "\\.org$")))
+
 
 (setq +org-capture-journal-file "org/journal-2025.org")
 (setq +org-capture-todo-file "org/todo-2025.org")
