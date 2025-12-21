@@ -311,8 +311,9 @@
   (setq org-latex-packages-alist
         '(("" "newfloat" nil)
           ("" "minted" nil)
-          ("" "xcolor" nil)
-          ("" "ctex" nil)))
+          ;; ("" "ctex" nil) ;; included in org-latex-classes
+          ("" "amssymb" nil) ;; $\square$
+          ("" "xcolor" nil)))
 
   ;;(setq org-latex-src-block-backend 'listings)
   (setq org-latex-src-block-backend 'minted)
