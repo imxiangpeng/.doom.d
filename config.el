@@ -49,11 +49,13 @@
       (append
        (find-lisp-find-files "~/keeping" "^todo[^/]*\\.org$")
        (find-lisp-find-files "~/keeping/roam" "^2025[^/]*\\.org$")
+       (find-lisp-find-files "~/keeping/roam" (concat "^" (format-time-string "%Y") "[^/]*\\.org$"))
        (find-lisp-find-files "~/keeping/org/todo" "\\.org$")))
 
 
-(setq +org-capture-journal-file "org/journal-2025.org")
-(setq +org-capture-todo-file "org/todo-2025.org")
+(setq +org-capture-journal-file (concat "org/journal-" (format-time-string "%Y") ".org"))
+(setq +org-capture-todo-file (concat "org/todo-" (format-time-string "%Y") ".org"))
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
