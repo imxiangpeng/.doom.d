@@ -49,6 +49,10 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! projectile
+  :recipe (:host github :repo "imxiangpeng/projectile"))
+(unpin! projectile)
+
 (package! ggtags
   :recipe (:host github :repo "leoliu/ggtags"
            :files ("ggtags.el")))
